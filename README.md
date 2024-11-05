@@ -1,126 +1,183 @@
-# Python-and-Gen-AI-Assignment
-I have developed a RESTful API using Flask. It can summarize earnings call transcripts for companies using Gemini 1.5 Flash. The API acceptS a company transcript in JSON format and return a structured  summary with specific categories.
+# Python and Gen-AI Assignment
 
-# Earnings Call Transcript Summary API Documentation
+This project provides a RESTful API built with Flask to summarize earnings call transcripts for companies using the Gemini 1.5 Flash model. The API accepts a transcript in JSON format and returns a structured summary across specific categories.
+
+## Table of Contents
+
+- [Hosted API](#hosted-api)
+- [API Documentation](#api-documentation)
+  - [Authentication](#authentication)
+  - [Endpoints](#endpoints)
+  - [Request and Response Formats](#request-and-response-formats)
+  - [Error Handling](#error-handling)
+- [Setup Instructions](#setup-instructions)
+- [Testing Guidelines](#testing-guidelines)
+- [Deployment Information](#deployment-information)
+- [Rate Limits](#rate-limits)
+- [Source Code](#source-code)
+- [Developer Contact](#developer-contact)
+
+---
 
 ## Hosted API
-You can access the hosted API here: [PYTHON-ANYWHERE-LINK](https://piijush.pythonanywhere.com/)
 
-## Authentication
-No authentication required for demo purposes. In production, implement API key authentication.
+Access the hosted API on PythonAnywhere: [Earnings Call Transcript Summary API](https://piijush.pythonanywhere.com/)
 
-# Earnings Call Transcript Summary API Documentation
+## API Documentation
 
-## 1. API Endpoints
+### Authentication
 
-The API exposes two endpoints:
+No authentication is required for demo purposes. For production, consider implementing API key authentication to secure endpoints.
 
-### 1.1. Earnings Transcript Summary
-**Endpoint:** `/earnings_transcript_summary`
-**Method:** POST
+### Endpoints
 
-This is the main endpoint responsible for summarizing the earnings call transcript.
+The API provides the following endpoints:
 
-#### Request Format
-The request body should be a JSON object with the following fields:
-```json
-{
-    "company_name": "Reliance Industries",
-    "transcript_text": "Full transcript text here..."
-}
+#### 1. Earnings Transcript Summary
+- **Endpoint**: `/earnings_transcript_summary`
+- **Method**: POST
+
+This endpoint generates a structured summary of an earnings call transcript.
+
+- **Request Format**:
+    ```json
+    {
+        "company_name": "Reliance Industries",
+        "transcript_text": "Full transcript text here..."
+    }
+    ```
+  - `company_name`: (string) The name of the company.
+  - `transcript_text`: (string) Full earnings call transcript (maximum 20,000 tokens).
+
+- **Response Format**:
+    ```json
+    {
+        "company_name": "Reliance Industries",
+        "financial_performance": "Summary of financial metrics...",
+        "market_dynamics": "Summary of market trends...",
+        "expansion_plans": "Summary of growth plans...",
+        "environmental_risks": "Summary of environmental concerns...",
+        "regulatory_or_policy_changes": "Summary of regulatory updates..."
+    }
+    ```
+  - The response includes summaries across categories such as financial performance, market dynamics, expansion plans, environmental risks, and regulatory changes.
+
+#### 2. Health Check
+- **Endpoint**: `/health`
+- **Method**: GET
+
+This endpoint checks the health status of the API.
+
+- **Response Format**:
+    ```json
+    {
+        "status": "healthy"
+    }
+    ```
+
+### Request and Response Formats
+
+The API expects and returns JSON-formatted data. Each request and response structure is defined in the endpoint descriptions above.
+
+### Error Handling
+
+The API has robust error handling for various scenarios:
+- **400 Bad Request**: Missing or invalid input data.
+- **500 Internal Server Error**: Issues with server processing, such as summarization errors.
+
+If an error occurs, the response includes an `error` field with a description of the issue.
+
+---
+
+## Setup Instructions
+
+To set up the API locally:
+
+1. **Clone the Repository**:
+    ```bash
+    git clone https://github.com/PijushPathak07/Python_and_Gen-AI
+    cd Python_and_Gen-AI
+    ```
+
+2. **Create a Virtual Environment**:
+    ```bash
+    python3 -m venv venv
+    source venv/bin/activate  # For Linux/macOS
+    venv\Scripts\activate     # For Windows
+    ```
+
+3. **Install Dependencies**:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+4. **Set Environment Variables**:
+   - Create a `.env` file in the root directory and add your API keys, e.g.:
+     ```bash
+     GOOGLE_API_KEY="your-google-api-key"
+     ```
+
+5. **Run the Application**:
+    ```bash
+    python app.py
+    ```
+
+---
+
+## Testing Guidelines
+
+A test script (`test_api.py`) is included for validation:
+
+- **Health Check**: Verifies the `/health` endpoint.
+- **Main Endpoint Test**: Sends a sample request to `/earnings_transcript_summary`.
+- **Error Scenarios**: Tests cases like invalid data or empty fields.
+
+Run the script using:
+```bash
+python test_api.py
 ```
-- `company_name`: The name of the company (string).
-- `transcript_text`: The full text of the earnings call transcript (string, maximum 20,000 tokens).
 
-#### Response Format
-The response will be a JSON object with the following structure:
-```json
-{
-    "company_name": "Reliance Industries",
-    "financial_performance": "Summary of financial metrics...",
-    "market_dynamics": "Summary of market trends...",
-    "expansion_plans": "Summary of growth plans...",
-    "environmental_risks": "Summary of environmental concerns...",
-    "regulatory_or_policy_changes": "Summary of regulatory updates..."
-}
-```
-- `company_name`: The name of the company.
-- `financial_performance`: A summary of the company's financial performance, including key metrics and statements.
-- `market_dynamics`: A summary of the market trends, demand shifts, and competitive landscape discussed in the transcript.
-- `expansion_plans`: A summary of any growth or expansion plans mentioned in the transcript, such as new markets, products, or initiatives.
-- `environmental_risks`: A summary of any environmental issues, sustainability initiatives, or ESG concerns discussed in the transcript.
-- `regulatory_or_policy_changes`: A summary of any regulatory changes or policy updates mentioned in the transcript and their potential impact on the company.
+---
 
-### 1.2. Health Check
-**Endpoint:** `/health`
-**Method:** GET
+## Deployment Information
 
-This endpoint can be used to check the health status of the API.
+The API is deployed on PythonAnywhere. For local development:
 
-#### Response Format
-The response will be a JSON object with the following structure:
-```json
-{
-    "status": "healthy"
-}
-```
+1. Clone the repository.
+2. Install dependencies using:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Configure environment variables in a `.env` file.
+4. Start the application locally with:
+   ```bash
+   python app.py
+   ```
 
-## 2. Request/Response Formats
-
-The API expects and returns data in JSON format. The request body should be a valid JSON object with the required fields, as specified in the endpoint descriptions.
-
-## 3. Error Handling
-
-The API includes comprehensive error handling for various scenarios:
-
-- **400 Bad Request**: This error will be returned if the input data is invalid, such as missing required fields or empty transcript text.
-- **500 Internal Server Error**: This error will be returned if there is an issue with the server-side processing, such as an exception during the summarization process.
-
-In case of an error, the response will include a JSON object with an `error` field containing a descriptive error message.
-
-## 4. Setup Instructions
-
-To set up the API locally, follow these steps:
-
-1. Clone the repository and navigate to the project directory.
-2. Create a virtual environment and activate it.
-3. Install the required dependencies from the `requirements.txt` file.
-4. Set up the environment variables, including the Google API key, in a `.env` file.
-5. Run the Flask application using the provided `app.py` file.
-
-Detailed instructions, including directory structure, virtual environment setup, and testing procedures, are available in the `setup-instructions` artifact.
-
-## 5. Testing Guidelines
-
-The project includes a comprehensive test script (`test_api.py`) that can be used to validate the API's functionality. The test script covers the following:
-
-- Testing the health check endpoint
-- Sending a sample request to the main API endpoint
-- Handling various error scenarios
-
-You can run the test script to ensure the API is working as expected. Detailed instructions for running the tests are provided in the `setup-instructions` artifact.
-
-## 6. Deployment Information
-
-The API is deployed to hosting platform - PythonAnywhere. 
+---
 
 ## Rate Limits
-- Free tier limitations apply
-- Maximum transcript length: 20,000 tokens
+
+- **Free Tier Limitations**: The hosted API is limited to demo usage.
+- **Transcript Length**: Maximum length of 20,000 tokens per request.
+
+---
 
 ## Source Code
-The complete source code is available at: [GitHub Repository URL](https://github.com/PijushPathak07/Python_and_Gen-AI)
 
-The codebase includes the following files:
-1.	app.py: The main Flask application that defines the API endpoints and handles the request/response logic.
-2.	config.py: The configuration file that manages environment variables, such as the Google API key.
-3.	test_api.py: A script for testing the API endpoints locally.
-4.	requirements.txt: The list of Python dependencies required to run the application.
-5.	templates/index.html: Web interface for testing the API.
+The complete codebase is available on GitHub: [GitHub Repository](https://github.com/PijushPathak07/Python_and_Gen-AI)
 
-## Deployment
-The API is deployed on PythonAnywhere. For local development:
-1. Clone the repository
-2. Install dependencies: `pip install -r requirements.txt`
-3. Set up environment variables in `.env`
-4. Run: `python app.py`
+### Codebase Overview
+
+1. **app.py**: The main Flask app defining the API endpoints.
+2. **config.py**: Configuration file for environment variables, such as API keys.
+3. **test_api.py**: A testing script for validating endpoints.
+4. **requirements.txt**: List of dependencies.
+5. **templates/index.html**: A simple web interface for testing the API.
+
+---
+
+## Developer Contact
+
+- **Name**: *Pijush Pathak*
+- **Email**: *[pijushpathak94@gmail.com](mailto:pijushpathak94@gmail.com)*
