@@ -4,7 +4,7 @@ I have developed a RESTful API using Flask. It can summarize earnings call trans
 # Earnings Call Transcript Summary API Documentation
 
 ## Hosted API
-You can access the hosted API here: [Hosted API Link](https://piijush.pythonanywhere.com/)
+You can access the hosted API here: [PYTHON-ANYWHERE-LINK](https://piijush.pythonanywhere.com/)
 
 ## Authentication
 No authentication required for demo purposes. In production, implement API key authentication.
@@ -109,7 +109,14 @@ The API is deployed to hosting platform - PythonAnywhere.
 - Maximum transcript length: 20,000 tokens
 
 ## Source Code
-The complete source code is available at: [GitHub Repository URL]
+The complete source code is available at: [GitHub Repository URL](https://github.com/PijushPathak07/Python_and_Gen-AI)
+
+The codebase includes the following files:
+1.	app.py: The main Flask application that defines the API endpoints and handles the request/response logic.
+2.	config.py: The configuration file that manages environment variables, such as the Google API key.
+3.	test_api.py: A script for testing the API endpoints locally.
+4.	requirements.txt: The list of Python dependencies required to run the application.
+5.	templates/index.html: Web interface for testing the API.
 
 ## Deployment
 The API is deployed on PythonAnywhere. For local development:
