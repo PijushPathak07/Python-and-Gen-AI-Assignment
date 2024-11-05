@@ -4,7 +4,7 @@ I have developed a RESTful API using Flask. It can summarize earnings call trans
 # Earnings Call Transcript Summary API Documentation
 
 ## Hosted API
-You can access the hosted API here: [Hosted API Link]([https://yourapi.pythonanywhere.com](https://piijush.pythonanywhere.com/))
+You can access the hosted API here: [Hosted API Link](https://piijush.pythonanywhere.com/)
 
 ## Authentication
 No authentication required for demo purposes. In production, implement API key authentication.
